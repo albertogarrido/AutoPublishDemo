@@ -33,5 +33,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: ":tada: [Grab your APK here](https://github.com/albertogarrido/AutoPublishDemo/actions/runs/${{ github.run_id }}"
+          msg: ":tada: **[Grab your APK here](https://github.com/albertogarrido/AutoPublishDemo/actions/runs/${{ github.run_id }})** :rocket: "
           check_for_duplicate_msg: true
