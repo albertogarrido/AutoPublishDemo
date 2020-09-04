@@ -9,5 +9,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         greeting.text = "Welcome to ${getString(R.string.app_name)}"
+
     }
 }
