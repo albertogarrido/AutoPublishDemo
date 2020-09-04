@@ -25,5 +25,13 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
-          name: app
+          name: mainApp
           path: app/build/outputs/apk/mainApp/debug/app-mainApp-debug.apk
+
+      - name: Announce APK
+          uses: unsplash/comment-on-pr@master
+          env:
+            GITHUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }}
+          with:
+            msg: ":tada: [review app](https://github.com/albertogarrido/AutoPublishDemo/suites/${{ github.event.number }}/artifacts/16420746"
+            check_for_duplicate_msg: true
