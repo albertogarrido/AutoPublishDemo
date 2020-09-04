@@ -1,0 +1,36 @@
+name: "Build and deploy MainApp"
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Fetch master branch
+      uses: actions/checkout@v2
+
+    - name: Grant gradle rights
+      run: chmod +x ./gradlew
+
+    - name: Build Release mainApp APK with Gradle
+      run: ./gradlew clean assembleRelease
+
+    - name: Build release
+      uses: r0adkll/sign-android-release@v1
+      with:
+        releaseDirectory: app/build/outputs/apk/mainApp/release
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        alias: ${{ secrets.ALIAS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+    - name: Upload Android Release to Play Store
+      uses: r0adkll/upload-google-play@v1
+      with:
+        serviceAccountJsonPlainText: ${{secrets.SERVICE_ACCOUNT_JSON}}
+        packageName: dev.albertogarrido.autopublishdemo
+        releaseFile: app/build/outputs/bundle/release/app-release.aab
+        track: beta
