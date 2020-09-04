@@ -1,0 +1,29 @@
+name: "Deploy in PR: mainApp"
+
+on:
+  pull_request:
+    branch:
+      types: [opened, synchronize, reopened, labeled]
+
+jobs:
+  apk:
+    name: Generate APK
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build debug APK
+        run: bash ./gradlew assembleMainApp --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/mainApp/debug/app-mainApp-debug.apk
