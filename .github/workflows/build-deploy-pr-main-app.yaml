@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: app/build/outputs/apk/debug/mainApp/debug/app-mainApp-debug.apk
+          path: app/build/outputs/apk/mainApp/debug/app-mainApp-debug.apk
